@@ -1,0 +1,87 @@
+<!-- tieba-account.html -->
+{% extends 'tieba/tieba-base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="page-wrap">
+    <!--开始::内容-->
+    {% if bduss_add %}
+        <!-- 账号列表 -->
+        <section class="page-hd">
+            <header>
+                <h2 class="title">账号列表</h2>
+                <p class="title-description">
+                    你的账号下有如下百度账号
+                </p>
+            </header>
+            <hr>
+        </section>
+        <table class="table table-bordered  mb-15">
+            {% if bduss_list %}
+            <form method="post" action="{% url 'tieba:tieba-like' %}">
+            {% csrf_token %}
+                <input type="submit" class="btn btn-danger-outline btn-block" value="一键获取贴吧信息">
+            </form>
+            {% endif %}
+            <thead>
+                <tr>
+                    <th>序   号</th>
+                    <th>百度用户名</th>
+                    <th>BDUSS</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for bduss in bduss_list %}
+                <tr class="cen">
+                    <td align="center">{{ forloop.counter}}</td>
+                    <td>{{ bduss.username }}</td>
+                    <td class="lt"><a style="display: block;text-align: center;">{{ bduss.bduss|slice:"100" }}......</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="form-cont">
+            {% if not bduss_list %}
+                <fieldset class="field-title center">
+                    <legend>你没有添加百度账号，请添加BDUSS。</legend>
+                </fieldset>
+            {% endif %}
+            <form method="post" action="{% url 'tieba:tieba-account' %}">
+            {% csrf_token %}
+                <input type="submit" class="btn btn-primary" value="添加新的BDUSS" name="bduss">
+            </form>
+        </div>
+        <!--开始::结束-->
+    {% else %}
+        <!-- 表单内容 -->
+        <section class="page-hd">
+            <header>
+                <h2 class="title">请输入百度BDUSS</h2>
+                <p class="title-description">
+                    请输入百度BDUSS
+                </p>
+            </header>
+            <hr>
+        </section>
+        <form method="post" >
+            {% csrf_token %}
+            {% if bduss_on_off %}
+                <fieldset class="field-title center">
+                    <legend>{{ bduss_on_off  }}</legend>
+                </fieldset>
+            {% endif %}
+            <div class="form-group-col-2">
+                <div class="form-label">BDUSS：</div>
+                <div class="form-cont">
+                    <input type="text" placeholder="请输入百度BDUSS......" name="bduss_from" class="form-control form-boxed">
+                </div>
+            </div>
+            <div class="form-group-col-2">
+                <div class="form-label"></div>
+                <div class="form-cont">
+                    <input type="submit" class="btn JopenPanel mr-10 btn-primary" value="提交BDUSS" />
+                </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

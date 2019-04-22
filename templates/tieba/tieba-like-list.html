@@ -1,0 +1,107 @@
+<!-- tieba-like-list.html -->
+{% extends 'tieba/tieba-base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="page-wrap">
+    <!--开始::内容-->
+    <!-- 贴吧列表 -->
+        <section class="page-hd">
+            <header>
+                <h2 class="title">我喜欢的贴吧</h2>
+                <p class="title-description">
+                    你的账号下有如下贴吧
+                </p>
+            </header>
+            <hr>
+        </section>
+        <table class="table table-bordered  mb-15">
+            <thead>
+                <tr>
+                    <th>序    号</th>
+                    <th>百度用户名</th>
+                    <th>贴  吧ID</th>
+                    <th>贴吧名称</th>
+                    <th>贴吧经验</th>
+                    <th>贴吧等级</th>
+                    <th>是否签到</th>
+                    <th>最近一次签到时间</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if tieba_list and tieba_time_list %}
+                <div class="form-cont">
+                    <div class="panel panel-default">
+                        <form method="post" action="{% url 'tieba:tieba-like' %}">
+                        {% csrf_token %}
+                            <input type="submit" class="btn btn-primary-outline btn-block" value="一键获取贴吧信息">
+                        </form>
+                    </div>
+                    <div class="panel panel-default">
+                        <form method="post" action="{% url 'tieba:tieba-sign' %}">
+                        {% csrf_token %}
+                            <input type="submit" class="btn btn-danger-outline btn-block" value="一键签到所有贴吧">
+                        </form>
+                    </div>
+                </div>
+                {% for tieba in contacts%}
+                    <tr class="cen">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ tieba.username }}</td>
+                        <td>{{ tieba.forum_id }}</td>
+                        <td>{{ tieba.forum_name }}</td>
+                        <td>{{ tieba.user_exp }}</td>
+                        <td>{{ tieba.user_level }}</td>
+                        {% if tieba.is_sign %}
+                            <td>{{ '已签到' }}</td>
+                        {% else %}
+                            <td>{{ '未签到' }}</td>
+                        {% endif %}
+                        <td>{{ tieba.time }}</td>
+                        <td>{{ tieba.note }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <div class="form-cont">
+                    <fieldset class="field-title center">
+                        <legend>亲，请更新你的贴吧信息。</legend>
+                    </fieldset>
+                    <form method="post" action="{% url 'tieba:tieba-like' %}">
+                    {% csrf_token %}
+                        <input type="submit" class="btn btn-danger-outline btn-block" value="一键获取贴吧信息">
+                    </form>
+                </div>
+            {% endif %}
+            </tbody>
+        </table>
+        <div class="panel panel-default">
+            <div class="panel-bd">
+                <div class="pagination">
+                    {% if contacts.has_previous %}
+
+                        <a href="?page={{ contacts.previous_page_number }}" class="disabled">上一页</a>
+                    {% endif %}
+
+                    {% if False %}
+                    {% for pg in contacts.paginator.page_range %}
+                        {% if contacts.number == pg %}
+                            <span class="current">{{ pg }}</span>
+                        {% else %}
+                            <a href="?page={{ pg }}" class="tcdNumber">{{ pg }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    <span class="current">
+                    第 {{ contacts.number }} 页 -- 共{{ contacts.paginator.num_pages }}页
+                    </span>
+
+                    {% if contacts.has_next %}
+                        <a href="?page={{ contacts.next_page_number }}" class="nextPage">下一页</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--开始::结束-->
+{% endblock %}

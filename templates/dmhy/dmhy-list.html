@@ -1,0 +1,84 @@
+<!-- tieba-like-list.html -->
+{% extends 'tieba/tieba-base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="page-wrap">
+    <!--开始::内容-->
+    <!-- 贴吧列表 -->
+        <section class="page-hd">
+            <header>
+                <h2 class="title">我喜欢的贴吧</h2>
+                <p class="title-description">
+                    你的账号下有如下贴吧
+                </p>
+            </header>
+            <hr>
+        </section>
+        <table class="table table-bordered  mb-15">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>分类</th>
+                    <th>标题</th>
+                    <th>字幕组</th>
+                    <th>大小</th>
+                    <th>发布时间</th>
+                    <th>发布人</th>
+                    <th>下载链接</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dmhy in dmhys %}
+                    <tr class="cen">
+                        <td class="cen">{{ forloop.counter }}</td>
+                        <td class="lt">
+                            <a href="{{ dmhy.fenlei_url }}" target="_blank">{{ dmhy.fenlei }}</a>
+                        </td>
+                        <td class="lt">
+                            <a href="{{ dmhy.name_url }}" target="_blank">{{ dmhy.name | slice:"100" }}</a>
+                        </td>
+                        <td class="lt">
+                            <a href="{{ dmhy.zimuzu_url }}" target="_blank">{{ dmhy.zimuzu }}</a>
+                        </td>
+                        <td>{{ dmhy.daxiao }}</td>
+                        <td>{{ dmhy.time }}</td>
+                        <td class="lt">
+                            <a href="{{ dmhy.faburen_url }}" target="_blank">{{ dmhy.faburen }}</a>
+                        </td>
+                        <td>
+                            <a title="下载" class="btn-" href="{{ dmhy.xiazai_url }}" target="_blank">下载</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="panel panel-default">
+            <div class="panel-bd">
+                <div class="pagination">
+                    {% if dmhys.has_previous %}
+                        <a href="?page={{ dmhys.previous_page_number }}" class="disabled">上一页</a>
+                    {% endif %}
+
+                    {% if False %}
+                    {% for pg in dmhys.paginator.page_range %}
+                        {% if dmhys.number == pg %}
+                            <span class="current">{{ pg }}</span>
+                        {% else %}
+                            <a href="?page={{ pg }}" class="tcdNumber">{{ pg }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    <span class="current">
+                    第 {{ dmhys.number }} 页 -- 共{{ dmhys.paginator.num_pages }}页
+                    </span>
+
+                    {% if dmhys.has_next %}
+                        <a href="?page={{ dmhys.next_page_number }}" class="nextPage">下一页</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--开始::结束-->
+{% endblock %}

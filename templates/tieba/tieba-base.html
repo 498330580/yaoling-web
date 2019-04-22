@@ -1,0 +1,29 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include 'tieba/tieba-head.html' %}
+    </head>
+    <body>
+        <div class="main-wrap">
+            <div class="side-nav">
+                <!-- 菜单 -->
+                {% include 'tieba/../tieba-menu.html' %}
+            </div>
+            <div class="content-wrap">
+                <!-- 顶部到航条 -->
+                <header class="top-hd">
+                    {% include 'tieba/tieba-header.html' %}
+                </header>
+                <!-- 内容页 -->
+                <main class="main-cont content mCustomScrollbar">
+                    {% block content %}{% endblock %}
+                </main>
+                <!-- 网页底部 -->
+                <footer class="btm-ft">
+                    {% include 'tieba/tieba-footer.html' %}
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!-- tieba-index.html -->
+{% extends 'tieba/tieba-base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!--开始::内容-->
+    <section class="page-hd">
+        <header>
+            <h2 class="title">表单结构展示</h2>
+            <p class="title-description">
+                两列式表单结构，一般针对产品详情，文章详情应用。
+            </p>
+        </header>
+        <hr>
+    </section>
+    {% if bduss %}
+        <fieldset class="field-title center">
+            <legend>你没有添加百度账号，请添加BDUSS。</legend>
+        </fieldset>
+    {% else %}
+    <form method="post" >
+    {% csrf_token %}
+    <div class="form-group-col-2">
+        <div class="form-label">签到知道：</div>
+        <div class="form-cont">
+            {% if baidu_zhidao %}
+            <label class="radio">
+                <input type="radio" name="zhidao" checked="checked"  value="yes">
+                <span>是</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="zhidao"  value="no">
+                <span>否</span>
+            </label>
+            {% else %}
+            <label class="radio">
+                <input type="radio" name="zhidao" value="yes">
+                <span>是</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="zhidao"  checked="checked" value="no">
+                <span>否</span>
+            </label>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group-col-2">
+    <div class="form-label">签到文库：</div>
+        <div class="form-cont">
+            {% if baidu_wenku %}
+            <label class="radio">
+                <input type="radio" name="wenku" checked="checked" value="yes">
+                <span>是</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="wenku"  value="no">
+                <span>否</span>
+            </label>
+            {% else %}
+            <label class="radio">
+                <input type="radio" name="wenku" value="yes">
+                <span>是</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="wenku"  checked="checked" value="no">
+                <span>否</span>
+            </label>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group-col-2">
+        <div class="form-label"></div>
+        <div class="form-cont">
+            <input type="submit" class="btn btn-primary" value="保存">
+        </div>
+    </div>
+    </form>
+    {% endif %}
+    <!--开始::结束-->
+{% endblock %}

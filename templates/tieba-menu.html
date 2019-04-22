@@ -1,0 +1,81 @@
+<!-- tieba-menu.html -->
+{% load staticfiles %}
+<div class="side-logo">
+    <div class="logo">
+        <span class="logo-ico">
+            <i class="i-l-1"></i>
+            <i class="i-l-2"></i>
+            <i class="i-l-3"></i>
+        </span>
+        <strong>{{ SITE_NAME }}后台管理模板</strong>
+    </div>
+</div>
+<nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
+    <h2>
+        <a href="" class="InitialPage"><i class="icon-dashboard"></i>数据概况</a>
+    </h2>
+    <ul>
+        <li>
+            <dl>
+                <dt>
+                    <i class="icon-columns"></i>百度账号签到<i class="icon-angle-right"></i>
+                </dt>
+                <dd>
+                    <a href="{% url 'tieba:index' %}">百度签到统计</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:signconfig' %}">百度签到设置</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:tieba-account' %}">百度账号设置</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:tieba-like' %}">我喜欢的贴吧</a>
+                </dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>
+                    <i class="icon-columns"></i>Bilibili签到<i class="icon-angle-right"></i>
+                </dt>
+                <dd>
+                    <a href="{% url 'tieba:index' %}">数据概况</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:signconfig' %}">Bilibili账号设置</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:tieba-account' %}">功能设置</a>
+                </dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>
+                    <i class="icon-columns"></i>鱼C论坛<i class="icon-angle-right"></i>
+                </dt>
+                <dd>
+                    <a href="{% url 'tieba:index' %}">数据概况</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:signconfig' %}">账号设置</a>
+                </dd>
+                <dd>
+                    <a href="{% url 'tieba:tieba-account' %}">功能设置</a>
+                </dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>
+                    <i class="icon-columns"></i>动漫花园<i class="icon-angle-right"></i>
+                </dt>
+                <dd>
+                    <a href="{% url 'dmhy:index' %}">数据</a>
+                </dd>
+            </dl>
+        </li>
+    </ul>
+</nav>
+<footer class="side-footer">© {{ SITE_NAME }} 版权所有</footer>
