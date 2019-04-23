@@ -140,8 +140,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 # 文本编辑器设置
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'   # 图片上传路径
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 图片储存路径
 CKEDITOR_UPLOAD_PATH = "upload/"
 CKEDITOR_JQUERY_URL = 'https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
