@@ -8,6 +8,7 @@ from re import search
 from accounts.models import MyUser
 # from hashlib import sha256
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib import auth
 
 
 # 网站公共参数
@@ -17,8 +18,23 @@ def global_setting(request):
 
 
 def login(request):
-    next = request.GET.get('next')
-    return render(request, 'accounts/login.html', locals())
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+        if user:
+            url_jump = request.POST['next']
+            auth.login(request, user)
+            request.session['user'] = username
+            tips = '登录成功'
+            return render(request, 'accounts/jump.html', locals())
+        else:
+            tips = '登录失败'
+            url_jump = request.get_full_path()
+            return render(request, 'accounts/jump.html', locals())
+    else:
+        next = request.GET.get('next', '/')
+        return render(request, 'accounts/login.html', locals())
 
 
 def register(request):
@@ -30,7 +46,6 @@ def register(request):
         xieyi = request.POST.getlist('xieyi')
         re_email = r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?"
         url_jump = request.get_full_path()
-        print('密码长度', len(usr_paaaword))
         # 判断是否输入用户名
         if not username:
             tips = '用户名不能为空'
