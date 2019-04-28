@@ -12,6 +12,7 @@ from .views import *
 
 urlpatterns = [
     re_path(r'^login/$', login, name='login'),
-    re_path(r'^logout$', my_logout, name='logout')
+    re_path(r'^logout$', my_logout, name='logout'),
+    re_path(r'register', register, name='register')
 ]
 

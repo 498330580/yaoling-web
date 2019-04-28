@@ -18,6 +18,10 @@ def login(request):
     return render(request, 'accounts/login.html', locals())
 
 
+def register(request):
+    return render(request, 'accounts/register.html', locals())
+
+
 def my_logout(request):
     logout(request)
     url_jump = '/accounts/login'
