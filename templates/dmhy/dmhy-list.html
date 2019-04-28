@@ -55,6 +55,28 @@
         <div class="panel panel-default">
             <div class="panel-bd">
                 <div class="pagination">
+                    {% ifnotequal curPage 1 %}
+                    <a href="?page={{ page }}&&allPage={{ allPage }}&&pageType=pageUp" class="disabled">
+                        上一页
+                    </a>
+                    {% endifnotequal %}
+                    <span class="current">
+                        第{{ page }}/{{ allPage }}页
+                    </span>
+                     <!-- 如果当前是最后一页，就不显示【下一页】链接 -->
+                    {% ifnotequal page allPage %}
+                        <a href="?page={{ page }}&&allPage={{ allPage }}&&pageType=pageDown" class="nextPage">
+                            下一页
+                        </a>
+                    {% endifnotequal %}
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <div class="panel panel-default">
+            <div class="panel-bd">
+                <div class="pagination">
                     {% if dmhys.has_previous %}
                         <a href="?page={{ dmhys.previous_page_number }}" class="disabled">上一页</a>
                     {% endif %}
@@ -79,6 +101,7 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
     <!--开始::结束-->
 {% endblock %}
