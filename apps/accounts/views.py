@@ -21,9 +21,11 @@ def global_setting(request):
         if not request.user.is_superuser:
             # 识别用户组名
             try:
-                group = Group.objects.get(user=request.user).name
+                group =[i.name for i in Group.objects.filter(user=request.user)]
             except:
-                group = '未加入用户组'
+                group = '游客'
+        else:
+            group = '超级用户'
     return locals()
 
 
