@@ -4,8 +4,7 @@
 # @Email   : 498330580@qq.com
 # @File    : urls.py
 # @Software: PyCharm
-
-
+from django.contrib.auth.models import Group
 from django.shortcuts import render
 # from django.utils import timezone
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
@@ -15,6 +14,20 @@ from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .tieba_time_task import *
+
+
+@login_required(login_url='/accounts/login')
+# 用户组识别
+def group(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            group = True
+        else:
+            if Group.objects.get(user=request.user).name == '贴吧':
+                group = True
+            else:
+                group = False
+        return group
 
 
 @login_required(login_url='/accounts/login')

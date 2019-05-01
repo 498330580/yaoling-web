@@ -15,6 +15,7 @@
         <a href="" class="InitialPage"><i class="icon-dashboard"></i>数据概况</a>
     </h2>
     <ul>
+        {% if superuser or group == '贴吧' %}
         <li>
             <dl>
                 <dt>
@@ -34,6 +35,8 @@
                 </dd>
             </dl>
         </li>
+        {% endif %}
+        {% if superuser or group == 'Bilibili' %}
         <li>
             <dl>
                 <dt>
@@ -50,6 +53,8 @@
                 </dd>
             </dl>
         </li>
+        {% endif %}
+        {% if superuser or group == '鱼C' %}
         <li>
             <dl>
                 <dt>
@@ -66,6 +71,8 @@
                 </dd>
             </dl>
         </li>
+        {% endif %}
+        {% if superuser or group == '动漫花园' %}
         <li>
             <dl>
                 <dt>
@@ -76,6 +83,7 @@
                 </dd>
             </dl>
         </li>
+        {% endif %}
     </ul>
 </nav>
 <footer class="side-footer">© {{ SITE_NAME }} 版权所有</footer>

@@ -1,6 +1,8 @@
 from django.contrib.auth import logout
 
 # Create your views here.
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 from django.shortcuts import render
 from django.conf import settings
@@ -14,6 +16,14 @@ from django.contrib import auth
 # 网站公共参数
 def global_setting(request):
     SITE_NAME = settings.SITE_NAME
+    if request.user.is_authenticated:
+        superuser = True if request.user.is_superuser else False
+        if not request.user.is_superuser:
+            # 识别用户组名
+            try:
+                group = Group.objects.get(user=request.user).name
+            except:
+                group = '未加入用户组'
     return locals()
 
 
@@ -79,15 +89,15 @@ def register(request):
         # 注册成功
         tips = '注册成功'
         url_jump = request.POST['next_url']
-        # s1 = sha256()
-        # s1.update(usr_paaaword.encode('utf-8'))
-        # password = s1.hexdigest()
         user = MyUser()     # 创建用户对象
         user.username = username
         user.password = make_password(usr_paaaword)
         user.email = usr_email
         user.is_staff = True
         user.save()
+        user = MyUser.objects.get(username=username)
+        group = Group.objects.get(name='注册会员')
+        user.groups.add(group)
         return render(request, 'accounts/jump.html', locals())
     else:
         next_url = request.GET.get('next', '/accounts/login')
@@ -95,6 +105,7 @@ def register(request):
 
 
 # 注销
+@login_required(login_url='/accounts/login')
 def my_logout(request):
     logout(request)
     url_jump = '/accounts/login'
@@ -103,10 +114,12 @@ def my_logout(request):
 
 
 # 个人主页
+@login_required(login_url='/accounts/login')
 def home(request):
     return render(request, 'accounts/body.html', locals())
 
 
 # 个人主页首页
+@login_required(login_url='/accounts/login')
 def index(request):
     return render(request, 'accounts/index.html', locals())
