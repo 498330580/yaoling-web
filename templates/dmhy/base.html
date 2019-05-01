@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% include 'dmhy/head.html' %}
+</head>
+<body>
+    {% include 'dmhy/header.html' %}
+    {% block body %}{% endblock %}
+    {% include 'dmhy/footer.html' %}
+</body>
+</html>

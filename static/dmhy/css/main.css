@@ -1,0 +1,35 @@
+html{font-size: 14px;}
+a,a:hover{color: #000000; text-decoration: none;}
+a.top_txt{
+	font-size: 14px;
+	color: #000000;
+}
+.search_box{
+	margin: 40px auto;
+	text-align: center;
+}
+
+.uk-search-default .uk-search-input{
+	border: 1px solid #7F5F92;
+}
+
+.uk-search .uk-search-icon{
+	color: #7F5F92;
+}
+
+.h1_index{
+	font-size: 16px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #7F5F92;
+	color: #6B2594;
+	line-height: 18px;
+}
+
+.down_txt a,.down_txt a:hover{color: #fff; text-decoration: none;}
+
+.content_box{
+border-bottom:1px solid #D5C2E0;
+padding-bottom:20px;
+}
+
+.content_box p{padding:10px}

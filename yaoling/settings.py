@@ -136,8 +136,9 @@ AUTH_USER_MODEL = 'accounts.MyUser'
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 # 静态文件目录
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, '/static/')
 ]
 # 文本编辑器设置
 MEDIA_URL = '/media/'   # 图片上传路径

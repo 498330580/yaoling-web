@@ -59,4 +59,4 @@ def index(request):
         if remainPost > 0:
             allPage += 1
 
-    return render(request, "dmhy/dmhy-list.html", locals())
+    return render(request, "dmhy/index.html", locals())
