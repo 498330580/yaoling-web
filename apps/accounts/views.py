@@ -44,8 +44,12 @@ def login(request):
             url_jump = request.get_full_path()
             return render(request, 'accounts/jump.html', locals())
     else:
-        next = request.GET.get('next', '/accounts/home')
-        return render(request, 'accounts/login.html', locals())
+        if request.user.is_authenticated:
+            return render(request, 'accounts/body.html', locals())
+            pass
+        else:
+            next = request.GET.get('next', '/accounts/home')
+            return render(request, 'accounts/login.html', locals())
 
 
 # 注册
@@ -123,3 +127,13 @@ def home(request):
 @login_required(login_url='/accounts/login')
 def index(request):
     return render(request, 'accounts/index.html', locals())
+
+
+# 404页面
+def page_not_found(request):
+    return render(request, 'accounts/404.html')
+
+
+# 500页面
+def error(request):
+    return render(request, 'accounts/500.html')
