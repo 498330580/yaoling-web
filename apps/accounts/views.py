@@ -17,6 +17,7 @@ def global_setting(request):
     return locals()
 
 
+# 登录
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -33,10 +34,11 @@ def login(request):
             url_jump = request.get_full_path()
             return render(request, 'accounts/jump.html', locals())
     else:
-        next = request.GET.get('next', '/')
+        next = request.GET.get('next', '/accounts/home')
         return render(request, 'accounts/login.html', locals())
 
 
+# 注册
 def register(request):
     if request.method == 'POST':
         username = request.POST['usr_name']
@@ -92,8 +94,19 @@ def register(request):
         return render(request, 'accounts/register.html', locals())
 
 
+# 注销
 def my_logout(request):
     logout(request)
     url_jump = '/accounts/login'
     tips = '注销成功'
     return render(request, 'accounts/jump.html', locals())
+
+
+# 个人主页
+def home(request):
+    return render(request, 'accounts/body.html', locals())
+
+
+# 个人主页首页
+def index(request):
+    return render(request, 'accounts/index.html', locals())

@@ -1,0 +1,17 @@
+<!-- body-base.html -->
+{% load staticfiles %}
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+    {% include 'accounts/body-head.html' %}
+</head>
+<body class="gray-bg">
+    {% block body-body %}
+    {% endblock %}
+    <script src="{% static 'accounts/js/jquery.min.js' %}?v=2.1.4"></script>
+    <script src="{% static 'accounts/js/bootstrap.min.js' %}?v=3.3.6"></script>
+    <script src="{% static 'accounts/js/plugins/layer/layer.min.js' %}"></script>
+    <script src="{% static 'accounts/js/content.min.js' %}"></script>
+    <script src="{% static 'accounts/js/welcome.min.js' %}"></script>
+</body>
+</html>

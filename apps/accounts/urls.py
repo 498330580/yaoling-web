@@ -13,6 +13,8 @@ from .views import *
 urlpatterns = [
     re_path(r'^login/$', login, name='login'),
     re_path(r'^logout$', my_logout, name='logout'),
-    re_path(r'register', register, name='register')
+    re_path(r'register', register, name='register'),
+    re_path(r'home', home, name='home'),
+    re_path(r'index', index, name='index')
 ]
 
