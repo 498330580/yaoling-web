@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 
-from yaoling.settings import STATIC_ROOT
+from yaoling.settings import STATIC_ROOT, MEDIA_ROOT
 
 urlpatterns = [
     path('', include(('gateway.urls', 'gateway'), namespace='gateway')),
@@ -31,9 +31,11 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 handler404 = "accounts.views.page_not_found"
 handler500 = "accounts.views.error"

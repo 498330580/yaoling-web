@@ -1,0 +1,27 @@
+{% extends 'gateway/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    {% if categorys and guides %}
+        {% for category in categorys %}
+            <!-- {{ category.name }} -->
+            <div class="box">
+                <a href="#" name="{{ category.name }}"></a>
+                <div class="sub-category">
+                    <div><i class="iconfont icon-shequ"></i>{{ category.name }}</div>
+                </div>
+                <div>
+                    {% for guide in guides %}
+                        {% if category == guide.category %}
+                            <a target="_blank" href="{{ guide.callback_url }}">
+                                <div class="item">
+                                    <div class="logo"><img src="{{ guide.img.url }}" alt="CNDS"> {{ guide.title }}</div>
+                                    <div class="desc">{{ guide.description }}</div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

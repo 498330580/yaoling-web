@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'gateway/head.html' %}
+</head>
+<body>
+<div class="container" id="container">
+    {% include 'gateway/menu.html' %}
+    <section class="main">
+        <div id="mainContent">
+            <!-- 手机端菜单 -->
+            <div id="menu-box">
+               <div id="menu">
+                   <input type="checkbox" id="menu-form">
+                   <label for="menu-form" class="menu-spin">
+                    <div class="line diagonal line-1"></div>
+                    <div class="line horizontal"></div>
+                    <div class="line diagonal line-2"></div>
+                  </label>
+                </div>
+            </div>
+            {% block body %}{% endblock %}
+            {% include 'gateway/footer.html' %}
+        </div>
+    </section>
+</div>
+</body>

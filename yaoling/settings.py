@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'tieba.apps.TiebaConfig',
     'dmhy.apps.DmhyConfig',
+    'gateway.apps.GatewayConfig',
 ]
 
 MIDDLEWARE = [

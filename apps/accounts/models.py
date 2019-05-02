@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 
 # 用户模型.
 class MyUser(AbstractUser):
-    avatar = models.ImageField(upload_to='avatar/%Y/%m',
+    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d',
                                default='avatar/default.jpg',
                                max_length=200, blank=True,
                                null=True,
