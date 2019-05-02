@@ -5,12 +5,13 @@
     <nav class="nav">
         <div class="item active"><a href=""><i class="iconfont icon-daohang2"></i>{{ SITE_NAME }}</a><i class="line"></i></div>
         <ul class="nav-item" id="navItem">
+            <li><a href="#yaoling"><i class="iconfont icon-tool"></i>本站导航</a></li>
             {% if categorys %}
                 {% for category in categorys %}
                     <li><a href="#{{ category.name }}"><i class="iconfont icon-shequ"></i>{{ category.name }}</a></li>
                 {% endfor %}
             {% endif %}
         </ul>
-        <div class="item comment"><a target="_blank" href="http://www.zcbboke.com/liuyan.html"><i class="iconfont icon-liuyan"></i>留言</a></div>
+        <div class="item comment"><a target="_blank" href="http://www.yaoling.ltd"><i class="iconfont icon-liuyan"></i>留言</a></div>
     </nav>
 </aside>

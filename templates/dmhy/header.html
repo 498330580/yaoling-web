@@ -1,26 +1,15 @@
 {% load staticfiles %}
-<div class="uk-container">
-    <a href="/" title="动漫花园百度贴吧推荐动漫花园镜像站" class="top_txt">動漫花園資源網 - 動漫愛好者的自由交流平台</a>
-    <a href="https://support.qq.com/products/59346" target="_blank">
-        <span class="uk-label uk-label-warning">意见反馈</span>
-    </a>
-</div>
 <div class="uk-container uk-margin-large-top uk-text-center">
     <div class="logo">
-        <a href="/"><img src="{% static 'dmhy/image/logo.png' %}" class="uk-align-center"></a>
+        <a href="{% url 'dmhy:index' %}"><img src="{% static 'dmhy/image/dongman.png' %}" class="uk-align-center"></a>
     </div>
     <div class="search">
         <div class="search_box">
-            <form class="uk-search uk-search-default uk-width-large uk-width-1-2" action="/dosearch/" method="get">
+            <form class="uk-search uk-search-default uk-width-large uk-width-1-2" action="{% url 'dmhy:search' %}" method="get">
+                {% csrf_token %}
                 <button type="submit" class="uk-search-icon-flip" uk-search-icon></button>
-                <input class="uk-search-input" type="search" placeholder="搜搜" name="key">
+                <input class="uk-search-input" type="search" placeholder="搜素动漫" name="key">
             </form>
         </div>
-    </div>
-    <div class="hot_txt">
-        <span>热门</span>
-        <a href="https://www.dongmanhuayuan.com/search/火影/" title="火影">火影</a>
-        <a href="https://www.dongmanhuayuan.com/search/恶魔高校/" title="恶魔高校">恶魔高校</a>
-        <a href="https://www.dongmanhuayuan.com/search/魔法禁书目录/" title="魔法禁书目录">魔法禁书目录</a>
     </div>
 </div>

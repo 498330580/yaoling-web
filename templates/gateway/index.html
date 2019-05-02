@@ -1,6 +1,30 @@
 {% extends 'gateway/base.html' %}
 {% load staticfiles %}
 {% block body %}
+    <!-- 实用工具 -->
+    <div class="box">
+        <a href="" name="yaoling"></a>
+        <div class="sub-category">
+            <div><i class="iconfont icon-tool"></i>本站导航</div>
+        </div>
+        <div>
+            <a target="_blank" href="{% url 'accounts:home' %}">
+                <div class="item">
+                    <div class="no-logo">瑶玲之家 - 个人中心</div>
+                </div>
+            </a>
+            <a target="_blank" href="{% url 'dmhy:index' %}">
+                <div class="item">
+                    <div class="no-logo">瑶玲之家 - 动漫中心</div>
+                </div>
+            </a>
+            <a target="_blank" href="{% url 'qiandao:date' %}">
+                <div class="item">
+                    <div class="no-logo">瑶玲之家 - 签到系统</div>
+                </div>
+            </a>
+        </div>
+    </div>
     {% if categorys and guides %}
         {% for category in categorys %}
             <!-- {{ category.name }} -->

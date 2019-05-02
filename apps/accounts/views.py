@@ -16,6 +16,8 @@ from django.contrib import auth
 # 网站公共参数
 def global_setting(request):
     SITE_NAME = settings.SITE_NAME
+    SITE_DESC = settings.SITE_DESC
+    SITE_KEY = settings.SITE_KEY
     if request.user.is_authenticated:
         superuser = True if request.user.is_superuser else False
         if not request.user.is_superuser:

@@ -3,9 +3,13 @@
 {% load staticfiles %}
 {% block body %}
 <div class="uk-container uk-margin-top uk-text-left">
-    <h1 class="h1_index">动漫花园最近更新</h1>
+    {% if searchs %}
+        <h1 class="h1_index">{{ key }}</h1>
+    {% else %}
+        <h1 class="h1_index">动漫花园最近更新</h1>
+    {% endif %}
     <ul class="uk-pagination uk-flex-center uk-margin-medium-top" uk-margin>
-        {% ifnotequal curPage 1 %}
+        {% ifnotequal page 1 %}
             <li><a href="?page={{ page }}&&allPage={{ allPage }}&&pageType=pageUp">上一页</a></li>
         {% endifnotequal %}
             <li class="uk-active"><span class="current">第{{ page }}/{{ allPage }}页</span></li>
@@ -27,7 +31,7 @@
         {% endfor %}
     </ul>
     <ul class="uk-pagination uk-flex-center uk-margin-medium-top" uk-margin>
-        {% ifnotequal curPage 1 %}
+        {% ifnotequal page 1 %}
             <li><a href="?page={{ page }}&&allPage={{ allPage }}&&pageType=pageUp">上一页</a></li>
         {% endifnotequal %}
             <li class="uk-active"><span class="current">第{{ page }}/{{ allPage }}页</span></li>

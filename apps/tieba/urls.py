@@ -11,7 +11,7 @@ from .views import *
 
 
 urlpatterns = [
-    path('', tieba_index),
+    path('', tieba_index, name='date'),
     path('index', tieba_index, name='index'),
     path('tieba-account', tieba_bduss_add, name='tieba-account'),
     re_path(r'^tieba-like$', tiebalist, name='tieba-like'),

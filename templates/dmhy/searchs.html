@@ -1,0 +1,44 @@
+<!-- body.html -->
+{% extends 'dmhy/base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="uk-container uk-margin-top uk-text-left">
+    {% if searchs %}
+        <h1 class="h1_index">{{ key }}</h1>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium-top" uk-margin>
+            {% ifnotequal page 1 %}
+                <li><a href="{% url 'dmhy:search' %}?key={{ key }}&page={{ page }}&&allPage={{ allPage }}&&pageType=pageUp&csrfmiddlewaretoken={{ csrfmiddlewaretoken }}">上一页</a></li>
+            {% endifnotequal %}
+                <li class="uk-active"><span class="current">第{{ page }}/{{ allPage }}页</span></li>
+             <!-- 如果当前是最后一页，就不显示【下一页】链接 -->
+            {% ifnotequal page allPage %}
+                <li><a href="{% url 'dmhy:search' %}?key={{ key }}&page={{ page }}&&allPage={{ allPage }}&&pageType=pageDown&csrfmiddlewaretoken={{ csrfmiddlewaretoken }}">下一页</a></li>
+            {% endifnotequal %}
+        </ul>
+        <ul class="uk-list uk-list-divider">
+            {% for dmhy in searchs %}
+            <li class="uk-grid uk-grid-collapse">
+                <span class="uk-width-small uk-visible@m">{{ dmhy.time }}</span>
+                <span class="uk-width-expand"><a class="uk-text-break" href="{{ dmhy.name_url }}" title="{{ dmhy.name }}">{{ dmhy.name }}</a></span>
+                <span class="uk-width-auto uk-visible@m uk-align-right">
+                <span class="uk-label"><b>{{ dmhy.daxiao }}</b></span>
+                <span class="uk-label uk-label-success down_txt"><a href="{{ dmhy.xiazai_url }}" title="{{ dmhy.name }}">下载文件</a></span>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium-top" uk-margin>
+            {% ifnotequal page 1 %}
+                <li><a href="{% url 'dmhy:search' %}?key={{ key }}&page={{ page }}&&allPage={{ allPage }}&pageType=pageUp&csrfmiddlewaretoken={{ csrfmiddlewaretoken }}">上一页</a></li>
+            {% endifnotequal %}
+                <li class="uk-active"><span class="current">第{{ page }}/{{ allPage }}页</span></li>
+             <!-- 如果当前是最后一页，就不显示【下一页】链接 -->
+            {% ifnotequal page allPage %}
+                <li><a href="{% url 'dmhy:search' %}?key={{ key }}&page={{ page }}&&allPage={{ allPage }}&pageType=pageDown&csrfmiddlewaretoken={{ csrfmiddlewaretoken }}">下一页</a></li>
+            {% endifnotequal %}
+        </ul>
+    {% else %}
+        <h1 class="h1_index">无搜索内容</h1>
+    {% endif %}
+</div>
+{% endblock %}

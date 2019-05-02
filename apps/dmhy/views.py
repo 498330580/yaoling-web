@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
@@ -7,7 +7,6 @@ from .models import *
 # Create your views here.
 
 
-@login_required(login_url='/accounts/login')
 # 分页代码（自带分页器）
 def get_page(request, post_list):
     paginator = Paginator(post_list, 80)
@@ -20,7 +19,6 @@ def get_page(request, post_list):
 
 
 # 自带分页器主页
-@login_required(login_url='/accounts/login')
 def index1(request):
     try:
         data = DmhyAll.objects.all().order_by('-time')
@@ -30,8 +28,7 @@ def index1(request):
         print('动漫花园INDEX-ERROR', e)
 
 
-# 高效分页器
-@login_required(login_url='/accounts/login')
+# 主页（高效分页）
 def index(request):
     ONE_PAGE_OF_DATA = 80
     try:
@@ -60,3 +57,39 @@ def index(request):
             allPage += 1
 
     return render(request, "dmhy/index.html", locals())
+
+
+# 搜索
+def search(request):
+    key = request.GET.get('key', None)
+    if key:
+        ONE_PAGE_OF_DATA = 80
+        try:
+            page = int(request.GET.get('page', 1))
+            pageType = str(request.GET.get('pageType', ''))
+            allPage = int(request.GET.get('allPage', '1'))
+            csrfmiddlewaretoken = request.GET.get('csrfmiddlewaretoken', None)
+        except ValueError:
+            page = 1
+            allPage = 1
+            pageType = ''
+
+        if pageType == 'pageDown':
+            page += 1
+        elif pageType == 'pageUp':
+            page -= 1
+
+        startPos = (page - 1) * ONE_PAGE_OF_DATA
+        endPos = startPos + ONE_PAGE_OF_DATA
+        searchs = DmhyAll.objects.filter(name__icontains=key)[startPos:endPos]
+
+        if page == 1 and allPage == 1:  # 标记1
+            allPostCounts = DmhyAll.objects.filter(name__icontains=key).count()
+            allPage = allPostCounts // ONE_PAGE_OF_DATA
+            remainPost = allPostCounts % ONE_PAGE_OF_DATA
+            if remainPost > 0:
+                allPage += 1
+
+        return render(request, 'dmhy/searchs.html', locals())
+    else:
+        return HttpResponseRedirect('/dmhy/')

@@ -233,8 +233,9 @@ LOGGING = {
 }
 '''
 # 网站基本信息配置
-SITE_NAME = '瑶玲之家'
-SITE_DESC = '您的学习、休闲港湾'
+SITE_NAME = '瑶玲之家'      # 页面标题
+SITE_DESC = '您的学习、休闲港湾'     # 网站描述
+SITE_KEY = ''      # 关键词
 WEIBO_SINA = 'https://weibo.com/zhouyao92124'
 BLOG_EMAIL = '498330580@qq.com'
 BLOG_RSS = 'http://www.yaoling.ltd'

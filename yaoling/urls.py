@@ -24,7 +24,7 @@ from yaoling.settings import STATIC_ROOT, MEDIA_ROOT
 
 urlpatterns = [
     path('', include(('gateway.urls', 'gateway'), namespace='gateway')),
-    path('tieba/', include(('tieba.urls', 'tieba'), namespace='tieba')),
+    path('qiandao/', include(('tieba.urls', 'tieba'), namespace='qiandao')),
     path('dmhy/', include(('dmhy.urls', 'dmhy'), namespace='dmhy')),
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
