@@ -113,7 +113,6 @@ def register(request):
 
 
 # 注销
-@login_required(login_url='/accounts/login')
 def my_logout(request):
     logout(request)
     url_jump = '/accounts/login'
@@ -130,6 +129,7 @@ def home(request):
 # 个人主页首页
 @login_required(login_url='/accounts/login')
 def index(request):
+    myuser = MyUser.objects.get(username=request.user)
     return render(request, 'accounts/index.html', locals())
 
 
