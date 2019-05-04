@@ -133,6 +133,20 @@ def index(request):
     return render(request, 'accounts/index.html', locals())
 
 
+# 个人资料
+@login_required(login_url='/accounts/login')
+def profile(request):
+    myuser = MyUser.objects.get(username=request.user)
+    return render(request, 'accounts/profile.html', locals())
+
+
+# 修改头像
+@login_required(login_url='/accounts/login')
+def form_advanced(request):
+    myuser = MyUser.objects.get(username=request.user)
+    return render(request, 'accounts/form_avatar.html', locals())
+
+
 # 404页面
 def page_not_found(request):
     return render(request, 'accounts/404.html')
