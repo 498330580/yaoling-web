@@ -13,6 +13,12 @@ import time
 import django
 import requests as req
 
+# 当前脚本目录
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 设置当前工作目录为脚本目录
+os.chdir('/www/wwwroot/python/yaoling')
+# print('当前脚本目录',BASE_DIR,'当前工作目录',os.getcwd())
+
 # 在默认的环境中运行（第一个参数是Django运行的配置文件，第二个参数是当前项目运行的配置文件）
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yaoling.settings")
 # 运行Django项目
@@ -272,10 +278,20 @@ class Task:
             print('定时签到知道ERROR', e)
 
 
-if __name__ == '__main__':
+def run():
     Task.bduss_error()
     Task.bduss_delete()
     Task.tieba_me_list_update()
     Task.tieba_timing_task()
     Task.baidu_wenku_sign()
     Task.baidu_zhidao_sign()
+
+
+if __name__ == '__main__':
+    # Task.bduss_error()
+    # Task.bduss_delete()
+    # Task.tieba_me_list_update()
+    # Task.tieba_timing_task()
+    # Task.baidu_wenku_sign()
+    # Task.baidu_zhidao_sign()
+    run()
