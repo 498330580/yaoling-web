@@ -10,7 +10,7 @@
                     <span><img alt="image" class="img-circle" src="{{ myuser.avatar.url }}" /></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
-                       <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
+                       <span class="block m-t-xs"><strong class="font-bold">{{ myuser.username }}</strong></span>
                         <span class="text-muted text-xs block">
                             {% if group in '超级用户' %}
                                 {{ group }}
@@ -38,7 +38,7 @@
             <li>
                 <a class="J_menuItem" href="{% url 'accounts:profile' %}" data-index="0">
                     <i class="fa fa-home"></i>
-                    <span class="nav-label">个人资料</span>
+                    <span class="nav-label">编辑资料</span>
                 </a>
             </li>
             <li>

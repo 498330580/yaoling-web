@@ -19,6 +19,7 @@ def global_setting(request):
     SITE_DESC = settings.SITE_DESC
     SITE_KEY = settings.SITE_KEY
     if request.user.is_authenticated:
+        myuser = MyUser.objects.get(username=request.user)
         superuser = True if request.user.is_superuser else False
         if not request.user.is_superuser:
             # 识别用户组名
@@ -129,21 +130,21 @@ def home(request):
 # 个人主页首页
 @login_required(login_url='/accounts/login')
 def index(request):
-    myuser = MyUser.objects.get(username=request.user)
+    # myuser = MyUser.objects.get(username=request.user)
     return render(request, 'accounts/index.html', locals())
 
 
 # 个人资料
 @login_required(login_url='/accounts/login')
 def profile(request):
-    myuser = MyUser.objects.get(username=request.user)
+    # myuser = MyUser.objects.get(username=request.user)
     return render(request, 'accounts/profile.html', locals())
 
 
 # 修改头像
 @login_required(login_url='/accounts/login')
 def form_advanced(request):
-    myuser = MyUser.objects.get(username=request.user)
+    # myuser = MyUser.objects.get(username=request.user)
     return render(request, 'accounts/form_avatar.html', locals())
 
 
