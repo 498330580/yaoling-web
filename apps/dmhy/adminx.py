@@ -11,7 +11,7 @@ from .models import DmhyAll
 
 
 class DmhyAllAdmin:
-    list_display = ('name', 'time', 'zimuzu', 'fenlei', 'faburen', 'xiazai_url',)
+    list_display = ['name', 'time', 'zimuzu', 'fenlei', 'faburen', 'xiazai_url',]
 
 
 xadmin.site.register(DmhyAll, DmhyAllAdmin)
