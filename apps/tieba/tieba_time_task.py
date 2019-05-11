@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 
-import os
+import os, sys
 import re
 import time
 
@@ -14,10 +14,13 @@ import django
 import requests as req
 
 # 当前脚本目录
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 设置当前工作目录为脚本目录
-os.chdir('/www/wwwroot/python/yaoling')
+# os.chdir('/www/wwwroot/python/yaoling')
 # print('当前脚本目录',BASE_DIR,'当前工作目录',os.getcwd())
+# 将django项目根目录加入环境变量
+parent_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(parent_path)
 
 # 在默认的环境中运行（第一个参数是Django运行的配置文件，第二个参数是当前项目运行的配置文件）
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yaoling.settings")
@@ -149,7 +152,7 @@ class Tieba:
                 qiandao = self.tieba.get('https://tieba.baidu.com/mo/q/sign?tbs=%s&kw=%s&is_like=%d&fid=%d' % (tbs,
                                                                                                                name,
                                                                                                                is_like,
-                                                                                                               forum_id))
+                                                                                                               int(forum_id)))
                 time.sleep(2)
                 if qiandao.json()['data']['msg'] != '亲，你之前已经签过了':
                     # 顺利签到的情况
