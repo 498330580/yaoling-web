@@ -8,7 +8,7 @@ from django.db import models
 class DmhyAll(models.Model):
     name = models.CharField(max_length=500, verbose_name='标题')
     name_url = models.CharField(max_length=250, verbose_name='链接', db_index=True)
-    time = models.DateTimeField(verbose_name='发布时间')
+    time = models.DateTimeField(verbose_name='发布时间', db_index=True)
     zimuzu = models.TextField(max_length=250, verbose_name='字幕组', null=True)
     zimuzu_url = models.CharField(max_length=250, verbose_name='字幕组链接', null=True)
     fenlei = models.CharField(max_length=250, verbose_name='分类')
