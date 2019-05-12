@@ -36,7 +36,7 @@ class Category(models.Model):
 # 发布导航
 class Guide(models.Model):
     title = models.CharField(max_length=50, verbose_name='标题')
-    callback_url = models.URLField(verbose_name='URL地址')
+    callback_url = models.CharField(verbose_name='URL地址', max_length=600)
     description = models.CharField(max_length=200, verbose_name='链接描述')
     img = models.ImageField(upload_to='gateway/%Y/%m/%d',
                             default='avatar/default.jpg',
