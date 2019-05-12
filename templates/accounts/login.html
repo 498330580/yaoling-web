@@ -25,7 +25,7 @@
                     <h1 class="logo-name">YL</h1>
                 </div>
                 <h3 href="#"><a href="#">瑶玲之家</a></h3>
-                <form class="m-t" role="form" action="{{ url_jump }}" method="post">
+                <form class="m-t" role="form" action="{% url 'accounts:login' %}?next={{ next }}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="用户名" required="" name="username">

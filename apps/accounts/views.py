@@ -34,7 +34,7 @@ def global_setting(request):
 
 # 登录
 def login(request):
-    url_jump = request.get_full_path()
+    next = request.GET.get('next', '/accounts/home')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
