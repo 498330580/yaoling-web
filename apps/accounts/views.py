@@ -45,15 +45,14 @@ def login(request):
             tips = '登录成功'
             return render(request, 'accounts/jump.html', locals())
         else:
-            tips = '登录失败'
-            url_jump = request.get_full_path()
-            return render(request, 'accounts/jump.html', locals())
+            # tips = '登录失败'
+            # url_jump = request.get_full_path()
+            return render(request, 'accounts/login.html', locals())
     else:
         if request.user.is_authenticated:
             return render(request, 'accounts/body.html', locals())
-            pass
         else:
-            next = request.GET.get('next', '/accounts/home')
+            # next = request.GET.get('next', '/accounts/home')
             return render(request, 'accounts/login.html', locals())
 
 
