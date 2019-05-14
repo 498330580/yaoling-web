@@ -5,7 +5,6 @@
     <nav class="nav">
         <div class="item active"><a href=""><i class="iconfont icon-daohang2"></i>{{ SITE_NAME }}</a><i class="line"></i></div>
         <ul class="nav-item" id="navItem">
-            <li><a href="#yaoling"><i class="iconfont icon-tool"></i>本站导航</a></li>
             {% if categorys %}
                 {% for category in categorys %}
                     <li><a href="#{{ category.name }}"><i class="iconfont icon-shequ"></i>{{ category.name }}</a></li>

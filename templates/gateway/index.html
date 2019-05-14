@@ -14,7 +14,7 @@
                         {% if category == guide.category %}
                             <a target="_blank" href="{{ guide.callback_url }}">
                                 <div class="item">
-                                    <div class="logo"><img src="{{ guide.img.url }}" alt="CNDS"> {{ guide.title }}</div>
+                                    <div class="logo"><img src="{{ guide.img.url }}" alt="{{ guide.title }}"> {{ guide.title }}</div>
                                     <div class="desc">{{ guide.description }}</div>
                                 </div>
                             </a>
