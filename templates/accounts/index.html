@@ -2,34 +2,9 @@
 {% extends 'accounts/body-base.html' %}
 {% load staticfiles %}
 {% block body-body %}
-    <div class="wrapper wrapper-content">
-        <div class="row animated fadeInRight">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h3>个人资料</h3>
-                    </div>
-                    <div>
-                        <div class="ibox-content profile-content">
-                            <style type="text/css">
-                                h4 {font-size: 12px;display : inline}
-                            </style>
-                            <h4>用户名</h4><p>{{ myuser.username }}</p>
-                            <h4>姓名</h4><p>{{ myuser.first_name }}{{ myuser.last_name }}</p>
-                            <h4>邮箱</h4><p>{{ myuser.email }}</p>
-                            <h4>QQ</h4><p>{{ myuser.qq }}</p>
-                            <h4>电话</h4><p>{{ myuser.mobile }}</p>
-                            <h4>生日</h4><p>{{ myuser.birthday }}</p>
-                            <h4>性别</h4><p>{{ myuser.gender }}</p>
-                            <h4>民族</h4><p>{{ myuser.nation }}</p>
-                            <h4>学历</h4><p>{{ myuser.education }}</p>
-                            <h4>身份证</h4><p>{{ myuser.id_number }}</p>
-                            <h4>家庭住址</h4><p>{{ myuser.address }}</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="row  border-bottom white-bg dashboard-header">
+        <div class="col-sm-3">
+            <h2>Hello,欢迎来到瑶玲之家！</h2>
         </div>
     </div>
 {% endblock %}
