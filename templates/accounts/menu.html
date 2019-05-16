@@ -7,7 +7,7 @@
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <span><img alt="image" class="img-circle" src="{{ myuser.avatar.url }}" /></span>
+                    <span><img height="64" width="64" alt="{{ myuser.username }}" class="img-circle" src="{{ myuser.avatar.url }}" /></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                        <span class="block m-t-xs"><strong class="font-bold">{{ myuser.username }}</strong></span>
@@ -25,7 +25,8 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="J_menuItem" href="form_avatar.html">修改头像</a>
+                        <li><a class="J_menuItem" href="{% url 'accounts:profile' %}">修改资料</a>
+                        <li><a class="J_menuItem" href="{% url 'accounts:form_password' %}">修改密码</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="{% url 'accounts:logout' %}">安全退出</a>
@@ -42,9 +43,9 @@
                 </a>
             </li>
             <li>
-                <a class="J_menuItem" href="{% url 'accounts:form_advanced' %}" data-index="0">
+                <a class="J_menuItem" href="{% url 'accounts:form_password' %}" data-index="0">
                     <i class="fa fa-home"></i>
-                    <span class="nav-label">修改头像</span>
+                    <span class="nav-label">修改密码</span>
                 </a>
             </li>
         </ul>

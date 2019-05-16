@@ -3,6 +3,8 @@ from django.contrib.auth import logout
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.core.files.base import ContentFile
+from django.http import HttpResponse
 
 from django.shortcuts import render
 from django.conf import settings
@@ -24,7 +26,7 @@ def global_setting(request):
         if not request.user.is_superuser:
             # 识别用户组名
             try:
-                group =[i.name for i in Group.objects.filter(user=request.user)]
+                group = [i.name for i in Group.objects.filter(user=request.user)]
             except:
                 group = '游客'
         else:
@@ -96,7 +98,7 @@ def register(request):
         # 注册成功
         tips = '注册成功'
         url_jump = request.POST['next_url']
-        user = MyUser()     # 创建用户对象
+        user = MyUser()  # 创建用户对象
         user.username = username
         user.password = make_password(usr_paaaword)
         user.email = usr_email
@@ -128,22 +130,45 @@ def home(request):
 # 个人主页首页
 @login_required(login_url='/accounts/login')
 def index(request):
-    # myuser = MyUser.objects.get(username=request.user)
     return render(request, 'accounts/index.html', locals())
 
 
-# 个人资料
+# 修改个人资料
 @login_required(login_url='/accounts/login')
 def profile(request):
-    # myuser = MyUser.objects.get(username=request.user)
+    if request.method == 'POST':
+        img = request.FILES['avatar']
+        MyUser.objects.filter(username=request.user).update(
+            qq=request.POST['qq'],
+            mobile=request.POST['mobile'],
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
+            email=request.POST['email'],
+        )
+        if img:
+            myuser = MyUser.objects.get(username=request.user)
+            file_content = ContentFile(img.read())
+            myuser.avatar.save(img.name, file_content)
     return render(request, 'accounts/profile.html', locals())
 
 
 # 修改头像
 @login_required(login_url='/accounts/login')
-def form_advanced(request):
-    # myuser = MyUser.objects.get(username=request.user)
-    return render(request, 'accounts/form_avatar.html', locals())
+def form_password(request):
+    if request.method == 'POST':
+        # passworded = request.POST['passworded']
+        password = request.POST['password']
+        passwords = request.POST['passwords']
+        tips = '密码修改成功'
+        if 6 > len(password) or len(password) > 20:
+            tips = '请输入正确的密码长度'
+        if password != passwords:
+            tips = '两次密码不同'
+        if tips == '密码修改成功':
+            user = MyUser.objects.get(username=request.user)
+            user.password = make_password(password)
+            user.save()
+    return render(request, 'accounts/form_password.html', locals())
 
 
 # 404页面

@@ -6,5 +6,64 @@
         <div class="col-sm-3">
             <h2>Hello,欢迎来到瑶玲之家！</h2>
         </div>
+        <div class="col-sm-12">
+            <div class="widget-head-color-box navy-bg p-lg text-center">
+                <div class="m-b-md">
+                    <h2 class="font-bold no-margins">
+                            {{ myuser.username }}
+                        </h2>
+                    <small>
+                        {% if group in '超级用户' %}
+                            {{ group }}
+                        {% elif group in '游客' %}
+                            {{ group }}
+                        {% else %}
+                            {% for g in group %}
+                                | {{ g }} |
+                            {% endfor %}
+                        {% endif %}
+                    </small>
+                </div>
+                <img height="212" width="212" src="{{ myuser.avatar.url }}" class="img-circle circle-border m-b-md" alt="{{ myuser.username }}">
+            </div>
+            <div class="widget-text-box">
+                <h4 class="media-heading">{{ myuser.username }}</h4>
+                <p>注册会员</p>
+                <div class="text-right">
+                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
+                    <a class="btn btn-xs btn-primary"><i class="fa fa-heart"></i> 收藏</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="widget lazur-bg p-xl">
+                <h2>{{ myuser.username }}</h2>
+                <ul class="list-unstyled m-t-md">
+                    <li>
+                        <span class="fa fa-envelope m-r-xs"></span>
+                        <label>Email:</label>
+                        {{ myuser.email }}
+                    </li>
+                    <li>
+                        <span class="fa fa-home m-r-xs"></span>
+                        <label>Address:</label>
+                        {% if myuser.address %}
+                            {{ myuser.address }}
+                        {% else %}
+                            暂无通讯地址
+                        {% endif %}
+                    </li>
+                    <li>
+                        <span class="fa fa-phone m-r-xs"></span>
+                        <label>联系方式:</label>
+                        {% if myuser.mobile %}
+                            {{ myuser.mobile }}
+                        {% else %}
+                            暂无联系方式
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
