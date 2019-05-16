@@ -198,7 +198,7 @@ def tiebalist(request):
                     tips = '没有符合条件的BDUSS'
                 return render(request, 'tieba/tieba-jump.html', locals())
 
-            tieba_list_Q = TiebaMeList.objects.all().exclude(username__user__username='BDUSS无效').order_by('user_level')
+            tieba_list_Q = TiebaMeList.objects.filter(username__user__username=request.user).exclude(username__username='BDUSS无效').order_by('user_level')
             tieba_list = tieba_list_Q.values()
             tieba_time_list = []
             for tieba_me, tieba_me_Q in zip(tieba_list, tieba_list_Q):
