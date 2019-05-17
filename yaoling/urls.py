@@ -19,8 +19,15 @@ import xadmin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
-
+# from sitemap import DmhyAllSitemap
 from yaoling.settings import STATIC_ROOT, MEDIA_ROOT
+# from django.contrib.sitemaps.views import sitemap
+
+
+# sitemaps = {
+#     'Dmhy': DmhyAllSitemap,
+# }
+
 
 urlpatterns = [
     path('', include(('gateway.urls', 'gateway'), namespace='gateway')),
@@ -32,6 +39,8 @@ urlpatterns = [
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
+    # re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+    #         name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 if settings.DEBUG:

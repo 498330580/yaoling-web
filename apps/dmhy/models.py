@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 from django.db import models
+from django.urls import reverse
 
 
 class DmhyAll(models.Model):
@@ -24,3 +25,6 @@ class DmhyAll(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def get_absolute_url(self):
+    #     return reverse('dmhy:index', args=[self.id])
