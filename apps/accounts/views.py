@@ -20,6 +20,7 @@ def global_setting(request):
     SITE_NAME = settings.SITE_NAME
     SITE_DESC = settings.SITE_DESC
     SITE_KEY = settings.SITE_KEY
+    STATISTICS = settings.STATISTICS
     if request.user.is_authenticated:
         myuser = MyUser.objects.get(username=request.user)
         superuser = True if request.user.is_superuser else False

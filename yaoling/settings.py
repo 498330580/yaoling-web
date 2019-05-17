@@ -240,3 +240,5 @@ SITE_KEY = ''      # 关键词
 WEIBO_SINA = 'https://weibo.com/zhouyao92124'
 BLOG_EMAIL = '498330580@qq.com'
 BLOG_RSS = 'http://www.yaoling.ltd'
+STATISTICS = r'<script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1277613314&web_id=1277613314' \
+             r'"></script>'     # 站长统计
