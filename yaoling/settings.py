@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     # 'django.contrib.sites',     # 网站地图
-    # 'django.contrib.sitemaps',  # 网站地图
+    'django.contrib.sitemaps',  # 网站地图
     'accounts.apps.AccountsConfig',
     'tieba.apps.TiebaConfig',
     'dmhy.apps.DmhyConfig',
@@ -244,4 +244,3 @@ BLOG_EMAIL = '498330580@qq.com'
 BLOG_RSS = 'http://www.yaoling.ltd'
 STATISTICS = r'<script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1277613314&web_id=1277613314' \
              r'"></script>'     # 站长统计
-# SITE_ID = 1

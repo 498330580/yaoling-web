@@ -59,6 +59,17 @@ def index(request):
     return render(request, "dmhy/index.html", locals())
 
 
+# 资源页
+def body(request):
+    body_true = True
+    id = request.GET.get('id', None)
+    if id:
+        searchs_id_body = DmhyAll.objects.get(id=id)
+        return render(request, 'dmhy/body.html', locals())
+    else:
+        return HttpResponseRedirect('/dmhy/')
+
+
 # 搜索
 def search(request):
     key = request.GET.get('key', None)

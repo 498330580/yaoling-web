@@ -11,5 +11,6 @@ from .views import *
 
 urlpatterns = [
     path('', index, name='index'),
-    re_path(r'search', search, name='search')
+    re_path(r'search', search, name='search'),
+    re_path(r'body', body, name='body')
 ]

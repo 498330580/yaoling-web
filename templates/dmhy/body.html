@@ -1,0 +1,52 @@
+{% extends 'dmhy/base.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="uk-container uk-margin-top uk-text-left uk-text-break">
+    <h1 class="h1_index uk-text-bold" data-target="412411"><span class="uk-label"><b>{{ searchs_id_body.fenlei }}</b></span>{{ searchs_id_body.name }}</h1>
+    <div class="uk-grid">
+        <div class="uk-width-1-1">
+            <p>更新时间：<a title="{{ searchs_id_body.name }}最后更新时间">{{ searchs_id_body.time }}</a> </p>
+            <div class="uk-form-horizontal">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">磁力地址：</label>
+                    <div class="uk-form-controls">
+                        <div uk-form-custom="target: true">
+                        <input class="uk-input uk-form-width-large" id="magnet_one" type="text" value="{{ searchs_id_body.xiazai_url }}" readonly >
+                        </div>
+                        <button class="uk-button uk-button-default btn uk-button-danger"  data-clipboard-target="#magnet_one">复制</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-1-1 uk-margin-top content_box"><h5>资源名称：</h5><p><a href="{{ searchs_id_body.name_url }}" target="_blank">{{ searchs_id_body.name }}</a></p></div>
+        <div class="uk-width-1-1 uk-margin-top content_box"><h5>分类：</h5><p><a>{{ searchs_id_body.fenlei }}</a></p></div>
+        <div class="uk-width-1-1 uk-margin-top content_box"><h5>字幕组：</h5><p><a href="{{ searchs_id_body.zimuzu_url }}" target="_blank">{{ searchs_id_body.zimuzu }}</a></p></div>
+        <div class="uk-width-1-1 uk-margin-top content_box"><h5>发布人：</h5><p><a href="{{ searchs_id_body.faburen_url }}" target="_blank">{{ searchs_id_body.faburen }}</a></p></div>
+        <div class="uk-width-1-1 uk-margin-top content_box"><h5>磁力二维码：</h5><p><img src="http://cms.hez70.com/thimg.php?img=http://www.hez70.com/qrcode/qr.php?url={{ searchs_id_body.xiazai_url }}" alt="{{ searchs_id_body.name }}磁力链接二维码"></p></div>
+        <div class="uk-width-1-1 uk-margin-top content_box"><h5>资源大小：</h5><p>{{ searchs_id_body.daxiao }}</p></div>
+        <div class="uk-width-1-1 uk-margin-top content_box">
+            <h5>磁力地址：</h5>
+            <p><a href="{{ searchs_id_body.xiazai_url }}" target="_blank">{{ searchs_id_body.xiazai_url }}</a></p>
+        </div>
+    </div>
+</div>
+<script>
+	UIkit.tooltip('.btn', {
+		title: "点击复制",
+	}).hide();
+	var clipboard = new ClipboardJS('.btn');
+	clipboard.on('success', function(e) {
+		UIkit.tooltip(e.trigger, {
+			title: "复制完成",
+		}).show();
+		setTimeout(toolTipHide,2000)
+	});
+
+	// hidden
+	function toolTipHide() {
+		UIkit.tooltip('.btn', {
+			title: "点击复制",
+		}).hide();
+	}
+</script>
+{% endblock %}

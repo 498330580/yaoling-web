@@ -1,8 +1,14 @@
 <!-- header.html -->
 {% load staticfiles %}
-<title>{{ SITE_NAME }} - 動漫愛好者的自由交流平台</title>
-<meta name="keywords" content="{{ SITE_KEY }}" />
-<meta name="description" content="{{ SITE_DESC }}" />
+{% if body_true %}
+    <title>{{ searchs_id_body.name }} - 動漫愛好者的自由交流平台</title>
+    <meta name="keywords" content="{{ searchs_id_body.name }},磁力链接,磁力链接下载,磁力链接迷,磁力链接转种子,磁力电影,磁力下载,磁力链" />
+    <meta name="description" content="{{ searchs_id_body.name }}磁力链接,{{ searchs_id_body.name }}下载,{{ searchs_id_body.name }}种子" />
+{% else %}
+    <title>{{ SITE_NAME }} - 動漫愛好者的自由交流平台</title>
+    <meta name="keywords" content="{{ SITE_KEY }}" />
+    <meta name="description" content="{{ SITE_DESC }}" />
+{% endif %}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="{% static 'dmhy/image/dongman.png' %}" />

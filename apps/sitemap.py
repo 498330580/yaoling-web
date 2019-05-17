@@ -7,20 +7,8 @@
 
 
 from django.contrib.sitemaps import Sitemap
-from django.contrib.sitemaps import GenericSitemap
-from django.urls import reverse
 from dmhy.models import DmhyAll
-
-
-# class StaticViewSitemap(Sitemap):
-#     priority = 0.5
-#     changefreq = 'daily'
-#
-#     def items(self):
-#         return ['blog:index', ]
-#
-#     def location(self, item):
-#         return reverse(item)
+from gateway.models import Guide
 
 
 class DmhyAllSitemap(Sitemap):
@@ -31,4 +19,15 @@ class DmhyAllSitemap(Sitemap):
         return DmhyAll.objects.all()
 
     def lastmod(self, obj):
-        return obj.pub_date
+        return obj.time
+
+
+class GuideSitemap(Sitemap):
+    changefreq = "never"
+    priority = 0.5
+
+    def items(self):
+        return Guide.objects.filter(category__name='本站导航')
+
+    def lastmod(self, obj):
+        return obj.date_publish

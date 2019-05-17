@@ -26,5 +26,5 @@ class DmhyAll(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('dmhy:index', args=[self.id])
+    def get_absolute_url(self):
+        return '/dmhy/body?id={id}'.format(id=self.id)

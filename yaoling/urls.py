@@ -19,14 +19,16 @@ import xadmin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
-# from sitemap import DmhyAllSitemap
+from sitemap import DmhyAllSitemap, GuideSitemap
 from yaoling.settings import STATIC_ROOT, MEDIA_ROOT
-# from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import views as sitemaps_views
+from django.views.decorators.cache import cache_page
 
 
-# sitemaps = {
-#     'Dmhy': DmhyAllSitemap,
-# }
+sitemaps = {
+    'Dmhy': DmhyAllSitemap,
+    'Guide': GuideSitemap,
+}
 
 
 urlpatterns = [
@@ -39,8 +41,9 @@ urlpatterns = [
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
-    # re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-    #         name='django.contrib.sitemaps.views.sitemap'),
+    # re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    re_path(r'^sitemap\.xml$',cache_page(86400)(sitemaps_views.index),{'sitemaps': sitemaps, 'sitemap_url_name': 'sitemaps'}),
+    re_path(r'^sitemap-(?P<section>.+)\.xml$',cache_page(86400)(sitemaps_views.sitemap),{'sitemaps': sitemaps}, name='sitemaps'),
 ]
 
 if settings.DEBUG:
