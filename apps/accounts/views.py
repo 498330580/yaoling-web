@@ -103,7 +103,7 @@ def register(request):
         user.username = username
         user.password = make_password(usr_paaaword)
         user.email = usr_email
-        user.is_staff = True
+        # user.is_staff = True    # 允许用户登录后台
         user.save()
         user = MyUser.objects.get(username=username)
         group = Group.objects.get(name='注册会员')
