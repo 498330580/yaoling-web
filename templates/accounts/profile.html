@@ -6,7 +6,11 @@
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>个人资料</h5>
+                <h5>个人资料
+                    {% if tips %}
+                        （{{ tips }}）
+                    {% endif %}
+                </h5>
             </div>
             <div class="ibox-content">
                 <form class="form-horizontal m-t" id="signupForm" novalidate="novalidate" method="post" action="{% url 'accounts:profile' %}" enctype="multipart/form-data">

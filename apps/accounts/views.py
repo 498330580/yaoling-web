@@ -138,7 +138,10 @@ def index(request):
 @login_required(login_url='/accounts/login')
 def profile(request):
     if request.method == 'POST':
-        img = request.FILES['avatar']
+        try:
+            img = request.FILES['avatar']
+        except:
+            img = False
         MyUser.objects.filter(username=request.user).update(
             qq=request.POST['qq'],
             mobile=request.POST['mobile'],
@@ -150,10 +153,11 @@ def profile(request):
             myuser = MyUser.objects.get(username=request.user)
             file_content = ContentFile(img.read())
             myuser.avatar.save(img.name, file_content)
+        tips = '资料修改成功'
     return render(request, 'accounts/profile.html', locals())
 
 
-# 修改头像
+# 修改密码
 @login_required(login_url='/accounts/login')
 def form_password(request):
     if request.method == 'POST':
