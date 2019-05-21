@@ -189,6 +189,7 @@ def tiebalist(request):
                 url_jump = request.get_full_path()
                 if bduss_list:
                     for bduss in bduss_list:
+                        tieba_list_get = [str(f_id['ID']) for f_id in Tieba(bduss.bduss).tieba_me_list()]
                         for tieba in Tieba(bduss.bduss).tieba_me_list():
                             if TiebaMeList.objects.filter(username=bduss, forum_id=tieba['ID']):
                                 # 更新贴吧数据
@@ -205,6 +206,11 @@ def tiebalist(request):
                                                                  is_sign=True if tieba['是否签到'] == '是' else False,
                                                                  user_exp=tieba['经验'],
                                                                  user_level=tieba['等级']))
+                        for tiebalist_list in models.TiebaMeList.objects.filter(username__bduss=bduss.bduss):
+                            if tiebalist_list.forum_id not in tieba_list_get:
+                                models.TiebaMeList.objects.filter(forum_id=tiebalist_list.forum_id).delete()
+                                print(tiebalist_list, '删除成功')
+
                     if tieba_me_list:
                         # 批量保存贴吧数据
                         TiebaMeList.objects.bulk_create(tieba_me_list)
