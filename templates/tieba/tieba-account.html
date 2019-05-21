@@ -34,7 +34,7 @@
                 <tr class="cen">
                     <td align="center">{{ forloop.counter}}</td>
                     <td>{{ bduss.username }}</td>
-                    <td class="lt"><a style="display: block;text-align: center;">{{ bduss.bduss|slice:"100" }}......</a></td>
+                    <td class="lt"><a style="display: block;text-align: center;" href="{% url 'tieba:tieba-bduss' %}?bduss={{ bduss.bduss }}">{{ bduss.bduss|slice:"100" }}......</a></td>
                 </tr>
             {% endfor %}
             </tbody>

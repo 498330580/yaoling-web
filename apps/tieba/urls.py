@@ -17,5 +17,6 @@ urlpatterns = [
     re_path(r'^tieba-like$', tiebalist, name='tieba-like'),
     path('tieba-sign', tieba_qiandao, name='tieba-sign'),
     path('tieba-signconfig', signconfig, name='signconfig'),
+    path('tieba-bduss', tieba_bduss, name='tieba-bduss')
 ]
 

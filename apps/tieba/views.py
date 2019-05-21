@@ -163,6 +163,7 @@ def tieba_bduss_add(request):
                                 bduss.user = request.user
                                 bduss.bduss = request.POST['bduss_from']
                                 bduss.username = name
+                                bduss.usernames = name
                                 bduss.save()
                                 bduss_add = True
                             else:
@@ -286,3 +287,48 @@ def signconfig(request):
             return render(request, 'tieba/error.html')
     except Exception as e:
         print('签到设置ERROR', e)
+
+
+@login_required(login_url='/accounts/login')
+def tieba_bduss(request):
+    try:
+        if groups(request):
+            if request.method == 'POST':
+                if request.POST['bduss']:
+                    if request.POST['BDUSS']:
+                        bduss_update = models.Bduss.objects.filter(bduss=request.POST['bduss'])
+                        bduss_update.update(bduss=request.POST['BDUSS'],
+                                            username=Tieba(request.POST['BDUSS']).get_name())
+                        tips = 'BDUSS更新成功'
+                        url_jump = '/qiandao/tieba-account'
+                        return render(request, 'tieba/tieba-jump.html', locals())
+                    else:
+                        tips = '未输入新的BDUSS'
+                        url_jump = '/qiandao/tieba-account'
+                        return render(request, 'tieba/tieba-jump.html', locals())
+                else:
+                    tips = '错误，无原BDUSS'
+                    url_jump = '/qiandao/tieba-account'
+                    return render(request, 'tieba/tieba-jump.html', locals())
+            else:
+                bduss_get = request.GET.get('bduss', None)
+                if not bduss_get:
+                    tips = '无BDUSS'
+                    url_jump = '/qiandao/tieba-account'
+                    return render(request, 'tieba/tieba-jump.html', locals())
+                try:
+                    bduss = models.Bduss.objects.get(bduss=bduss_get)
+                    if bduss.username == 'BDUSS无效':
+                        bduss_on_off = False
+                    else:
+                        bduss_on_off = True
+                except:
+                    tips = '该BDUSS不存在'
+                    url_jump = '/qiandao/tieba-account'
+                    return render(request, 'tieba/tieba-jump.html', locals())
+                return render(request, 'tieba/tieba-bduss.html', locals())
+
+        else:
+            return render(request, 'tieba/error.html')
+    except Exception as e:
+        print('修改BDUSS错误', e)

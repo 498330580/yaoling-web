@@ -11,6 +11,7 @@ class Bduss(models.Model):
     user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE, editable=False)
     bduss = models.TextField(verbose_name='BDUSS')
     username = models.CharField(max_length=250, verbose_name='百度用户名', editable=False)
+    usernames = models.CharField(max_length=250, verbose_name='百度用户名(验证用)', default='', editable=False)
 
     '''
     def save(self, *args, **kwargs):
