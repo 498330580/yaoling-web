@@ -7,6 +7,7 @@
 
 
 import os, sys
+import random
 import re
 import time
 
@@ -81,12 +82,14 @@ class Tieba:
 
     def baidu_wenku(self):
         # 百度文库签到
+        time.sleep(random.randint(1, 5))  # 随机间隔签到时间
         url = 'https://wenku.baidu.com/task/submit/signin'
         self.wenku.get(url)
         return '签到成功'
 
     def baidu_zhidao(self):
         # 百度知道签到
+        time.sleep(random.randint(1, 5))  # 随机间隔签到时间
         url = 'https://zhidao.baidu.com/msubmit/signin?random=0.3507959078709957&'
         payload = {"ssid": "", "cifr": ""}
         if self.zhidao.post(url, data=payload).json()['errmsg'] != '已签到':
@@ -145,6 +148,7 @@ class Tieba:
     # 签到贴吧，并返回是否签到成功
     def tieba_clock(self, name, forum_id):
         try:
+            time.sleep(random.randint(1, 5))        # 随机间隔签到时间
             t = re.search('"tbs":"(.*?)"', self.tieba_qiandao.get('https://tieba.baidu.com/f?kw=%s&pn=0&' % name).text)
             if t:
                 tbs = t.group(1)
