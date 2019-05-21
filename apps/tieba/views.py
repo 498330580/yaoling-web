@@ -47,15 +47,30 @@ def get_page(request, post_list):
 def tieba_index(request):
     try:
         if groups(request):
+            time_now = timezone.now()
+            t_year = int(time_now.strftime("%Y"))
+            t_month = int(time_now.strftime("%m"))
+            t_day = int(time_now.strftime("%d"))
+
             bduss_int_False = Bduss.objects.filter(bduss='BDUSS无效', user=request.user)
             bduss_int_True = Bduss.objects.exclude(bduss='BDUSS无效').filter(user=request.user)
             tieba_is_sign_False = TiebaMeList.objects.filter(username__user__username=request.user,
-                                                             is_sign=False).exclude(note='该贴吧无法签到，请检查贴吧设置。')
-            tieba_is_sign_True = TiebaMeList.objects.filter(username__user__username=request.user, is_sign=True)
+                                                             is_sign=False,
+                                                             signtime__time__day=t_day,
+                                                             signtime__time__month=t_month,
+                                                             signtime__time__year=t_year
+                                                             ).exclude(note='该贴吧无法签到，请检查贴吧设置。')
+            tieba_is_sign_True = TiebaMeList.objects.filter(username__user__username=request.user,
+                                                            is_sign=True,
+                                                            signtime__time__day=t_day,
+                                                            signtime__time__month=t_month,
+                                                            signtime__time__year=t_year)
             tieba_is_sign_False_off = TiebaMeList.objects.filter(username__user__username=request.user,
                                                                  is_sign=False,
-                                                                 note='该贴吧无法签到，请检查贴吧设置。'
-                                                                 )
+                                                                 note='该贴吧无法签到，请检查贴吧设置。',
+                                                                 signtime__time__day=t_day,
+                                                                 signtime__time__month=t_month,
+                                                                 signtime__time__year=t_year)
             return render(request, 'tieba/tieba-index.html', locals())
         else:
             return render(request, 'tieba/error.html')
@@ -99,7 +114,8 @@ def tieba_qiandao(request):
                         s.save()
                 else:
                     tieba = Tieba(tieba_me_list.username.bduss).tieba_clock(name=tieba_me_list.forum_name,
-                                                                            forum_id=tieba_me_list.forum_id)
+                                                                            forum_id=tieba_me_list.forum_id,
+                                                                            time_sleep=False)
 
                     if tieba:
                         # 顺利签到的情况
@@ -119,7 +135,7 @@ def tieba_qiandao(request):
         except Exception as e:
             print('一键签到ERROR', e)
             tips = '签到失败 ERROR:%s' % e
-        url_jump = '/tieba/tieba-like'
+        url_jump = '/qiandao/tieba-like'
         return render(request, 'tieba/tieba-jump.html', locals())
     else:
         return render(request, 'tieba/error.html')
