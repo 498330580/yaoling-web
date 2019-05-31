@@ -14,6 +14,11 @@ import time
 import django
 import requests as req
 
+# 启用邮箱
+import smtplib
+from email.mime.text import MIMEText
+from email.utils import formataddr
+
 # 当前脚本目录
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 设置当前工作目录为脚本目录
@@ -30,6 +35,31 @@ django.setup()
 
 from tieba import models
 from django.utils import timezone
+
+
+def email_python(name, receivers, bduss, day):
+    # 发送邮件
+    try:
+        my_sender = 'yaolingzhijia@163.com'  # 发件人邮箱账号，为了后面易于维护，所以写成了变量
+        my_user = receivers  # 收件人邮箱账号，为了后面易于维护，所以写成了变量
+        body = '''
+        <h2>当前为第{day}天提醒</h2>
+        <p>账号：{name}-BDUSS失效，请速至瑶玲之家签到中心修改，如超过7日未修改，该百度账号将会被删除</p>
+        <p style=word-wrap:break-word>该BDUSS为：{bduss}</p>
+        <p><a href="http://www.yaoling.ltd">瑶玲之家</a></p>
+        '''.format(name=name, bduss=bduss, day=day)
+        msg = MIMEText(body, 'html', 'utf-8')
+        msg['From'] = formataddr(["瑶玲之家", my_sender])  # 括号里的对应发件人邮箱昵称、发件人邮箱账号
+        msg['To'] = formataddr([name, my_user])  # 括号里的对应收件人邮箱昵称、收件人邮箱账号
+        msg['Subject'] = "账号{name}-BDUSS失效".format(name=name)  # 邮件的主题，也可以说是标题
+
+        server = smtplib.SMTP("smtp.163.com", 25)  # 发件人邮箱中的SMTP服务器，端口是25
+        server.login(my_sender, "19920124Zhy")  # 括号中对应的是发件人邮箱账号、邮箱密码
+        server.sendmail(my_sender, [my_user, ], msg.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
+        server.quit()  # 这句是关闭连接的意思
+        print("{name}邮件发送成功".format(name=name))
+    except smtplib.SMTPException:
+        print("Error: {name}无法发送邮件".format(name=name))
 
 
 class Tieba:
@@ -188,7 +218,33 @@ class Task:
     def bduss_delete():
         # 定时删除数据库中失效的BDUSS
         print('开始删除失效的BDUSS')
-        models.Bduss.objects.filter(username='BDUSS无效').delete()
+        time_now = timezone.now()
+        username_off = models.Bduss.objects.filter(username='BDUSS无效')
+        if username_off:
+            for username in username_off:
+                if models.Bduss_time.objects.filter(username=username):
+                    bduss_time = models.Bduss_time.objects.get(username=username)
+                    if bduss_time.email_send.strftime("%Y-%m-%d") != time_now.strftime("%Y-%m-%d"):
+                        day_int = (time_now-bduss_time.username_false).days + 1
+                        if day_int >= 8:
+                            username.delete()
+                        else:
+                            bduss_time.email_send = time_now
+                            email_python(name=username.usernames,
+                                         receivers=username.user.email,
+                                         bduss=username.bduss,
+                                         day=str(day_int))
+                            bduss_time.save()
+                    else:
+                        print('{name}当天已发送提醒邮件'.format(name=username.usernames))
+                else:
+                    bduss_time = models.Bduss_time(username=username)
+                    bduss_time.save()
+                    email_python(name=username.usernames,
+                                 receivers=username.user.email,
+                                 bduss=username.bduss,
+                                 day='1')
+        # models.Bduss.objects.filter(username='BDUSS无效').delete()
         print('删除失效的BDUSS完毕')
 
     @staticmethod

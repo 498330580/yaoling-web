@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from accounts.models import MyUser
 
 # from .tieba_time_task import *
@@ -72,3 +74,18 @@ class Signconfig(models.Model):
 
     def __str__(self):
         return self.user
+
+
+# 失效BDUSS时间记录
+class Bduss_time(models.Model):
+    username = models.ForeignKey(Bduss, verbose_name='百度用户名', on_delete=models.CASCADE, editable=False)
+    username_false = models.DateTimeField(verbose_name='BDUSS失效时间记录', editable=False, auto_now=True)
+    email_send = models.DateTimeField(verbose_name='发送BDUSS失效邮件的时间记录', editable=False, auto_now_add=True)
+    # email_state = models.BooleanField(verbose_name='是否已发送当日邮件', editable=False,  default=False)
+
+    class Meta:
+        verbose_name = '失效BDUSS时间记录'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.username.username

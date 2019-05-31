@@ -289,6 +289,7 @@ def signconfig(request):
         print('签到设置ERROR', e)
 
 
+# BDUSS修改更新
 @login_required(login_url='/accounts/login')
 def tieba_bduss(request):
     try:
@@ -296,11 +297,20 @@ def tieba_bduss(request):
             if request.method == 'POST':
                 if request.POST['bduss']:
                     if request.POST['BDUSS']:
-                        bduss_update = models.Bduss.objects.filter(bduss=request.POST['bduss'])
-                        bduss_update.update(bduss=request.POST['BDUSS'],
-                                            username=Tieba(request.POST['BDUSS']).get_name())
-                        tips = 'BDUSS更新成功'
-                        url_jump = '/qiandao/tieba-account'
+                        name = Tieba(request.POST['BDUSS']).get_name()
+                        if name != 'BDUSS无效':
+                            bduss_update = models.Bduss.objects.filter(bduss=request.POST['bduss'])
+                            for bduss_time in bduss_update:
+                                models.Bduss_time.objects.filter(username=bduss_time).delete()
+                            bduss_update.update(bduss=request.POST['BDUSS'],
+                                                username=name,
+                                                usernames=name)
+
+                            tips = 'BDUSS更新成功'
+                            url_jump = '/qiandao/tieba-account'
+                        else:
+                            tips = 'BDUSS无效'
+                            url_jump = '/qiandao/tieba-account'
                         return render(request, 'tieba/tieba-jump.html', locals())
                     else:
                         tips = '未输入新的BDUSS'
